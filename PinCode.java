@@ -40,7 +40,6 @@ public class Main {
                 JOptionPane.showMessageDialog(jFrame, "Please input a value");
             }else{
                 try{
-                    //int getPin = Integer.parseInt(input);
                     //Length of the pin
                     int length = input.length();
                     System.out.println("Length: " + length);
