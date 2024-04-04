@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Scanner;
 
-public class PinCode {
+public class Main {
     // AES encryption/decryption key
     private static final String AES_KEY = "0123456789abcdef"; // 16 characters for 128-bit key
 
@@ -36,13 +36,13 @@ public class PinCode {
                 System.exit(0);
             }
             //Checks whether or not the value is empty
-            if(input.isEmpty() || input.equals(" ")){
+            if(input.trim().isEmpty()){
                 JOptionPane.showMessageDialog(jFrame, "Please input a value");
             }else{
                 try{
-                    int getPin = Integer.parseInt(input);
+                    //int getPin = Integer.parseInt(input);
                     //Length of the pin
-                    int length = (int)(Math.log10(getPin)+1);
+                    int length = input.length();
                     System.out.println("Length: " + length);
                     //Length should be in between 4-8 digits
                     if(length < 4 || length > 8){
@@ -69,14 +69,14 @@ public class PinCode {
     }
 
     public static void checkPin(File file, JFrame jFrame){
-        int pinCode = 0;
+        String pinCode = "";
         try{
             Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()){
                 String encryptedPin = scanner.nextLine();
                 // Decrypt the pin read from file
                 String decryptedPin = decrypt(encryptedPin);
-                pinCode = Integer.parseInt(decryptedPin);
+                pinCode = decryptedPin;
                 System.out.println(decryptedPin);
             }
             scanner.close();
@@ -87,21 +87,20 @@ public class PinCode {
                 if(input == null){
                     System.exit(0);
                 }
-                if (input.isEmpty() || input.equals(" ")) {
+                if (input.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(jFrame, "Please input a value");
                 } else {
                     try {
-                        int getPin = Integer.parseInt(input);
-                        int length = (int) (Math.log10(getPin) + 1);
+                        int length = input.length();
                         if (length < 4 || length > 8) {
                             JOptionPane.showMessageDialog(jFrame, "Number should be in between 4-8 digits");
                         } else {
-                            if(tries >= 2 && getPin != pinCode){
+                            if(tries >= 2 && !(input.equals(pinCode))){
                                 JOptionPane.showMessageDialog(jFrame, "Too many tries");
                                 pinEntered = true;
                                 System.exit(0);
                             }else{
-                                if(getPin == pinCode){
+                                if(input.equals(pinCode)){
                                     JOptionPane.showMessageDialog(jFrame, "Unlocked");
                                     pinEntered = true;
                                     System.exit(0);
