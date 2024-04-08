@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Scanner;
 
-public class Main {
+public class PinCode {
     // AES encryption/decryption key
     private static final String AES_KEY = "0123456789abcdef"; // 16 characters for 128-bit key
 
@@ -17,28 +17,28 @@ public class Main {
         //Checks whether or not there is a txt file
         //If there is, then the user will only be asked to input their pin
         //If there isn't the user would be asked to set up a pin
-        if(file.exists() && !file.isDirectory()){
+        if (file.exists() && !file.isDirectory()) {
             System.out.println("File exists");
             checkPin(file, jFrame);
-        }else{
+        } else {
             System.out.println("File doesn't exist");
             setPin(jFrame);
         }
     }
 
-    public static void setPin(JFrame jFrame){
+    public static void setPin(JFrame jFrame) {
         boolean pinSet = false;
         //Loop repeats until the user finally sets a pin
-        while(!pinSet){
-            String input =  JOptionPane.showInputDialog(jFrame, "Set your pin");
+        while(!pinSet) {
+            String input = JOptionPane.showInputDialog(jFrame, "Set your pin");
             //Mainly to check if the user pressed X
-            if(input == null){
+            if (input == null) {
                 System.exit(0);
             }
             //Checks whether or not the value is empty
-            if(input.trim().isEmpty()){
+            if (input.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(jFrame, "Please input a value");
-            }else{
+            } else {
                 try{
                     //Length of the pin
                     int length = input.length();
@@ -58,7 +58,7 @@ public class Main {
                         System.exit(0);
                     }
                     //Check whether or not the number inputted is an integer or not
-                }catch(NumberFormatException e){
+                } catch(NumberFormatException e){
                     JOptionPane.showMessageDialog(jFrame, "Please input integers");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -67,11 +67,11 @@ public class Main {
         }
     }
 
-    public static void checkPin(File file, JFrame jFrame){
+    public static void checkPin(File file, JFrame jFrame) {
         String pinCode = "";
-        try{
+        try {
             Scanner scanner = new Scanner(file);
-            while(scanner.hasNextLine()){
+            while(scanner.hasNextLine()) {
                 String encryptedPin = scanner.nextLine();
                 // Decrypt the pin read from file
                 String decryptedPin = decrypt(encryptedPin);
@@ -94,11 +94,11 @@ public class Main {
                         if (length < 4 || length > 8) {
                             JOptionPane.showMessageDialog(jFrame, "Number should be in between 4-8 digits");
                         } else {
-                            if(tries >= 2 && !(input.equals(pinCode))){
+                            if (tries >= 2 && !(input.equals(pinCode))){
                                 JOptionPane.showMessageDialog(jFrame, "Too many tries");
                                 pinEntered = true;
                                 System.exit(0);
-                            }else{
+                            } else {
                                 if(input.equals(pinCode)){
                                     JOptionPane.showMessageDialog(jFrame, "Unlocked");
                                     pinEntered = true;
@@ -114,7 +114,7 @@ public class Main {
                     }
                 }
             }
-        }catch(IOException e){
+        } catch(IOException e) {
             System.out.println("File error");
             e.printStackTrace();
         }
