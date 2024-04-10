@@ -1,6 +1,9 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.*;
 
 public class Main extends JFrame {
@@ -16,7 +19,6 @@ public class Main extends JFrame {
     }
 
     private void initComponents() {
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Book Manager");
         setPreferredSize(new Dimension(1920, 800));
@@ -24,59 +26,14 @@ public class Main extends JFrame {
         JPanel panel = new JPanel();
         getContentPane().add(panel, BorderLayout.NORTH);
 
-        JLabel libraryLabel = new JLabel("Library");
-        panel.add(libraryLabel);
-
-        JLabel jLabel1 = new JLabel("Title:");
-        panel.add(jLabel1);
-
-        JTextField jTextFieldTitle = new JTextField(10);
-        panel.add(jTextFieldTitle);
-
-        JLabel jLabel2 = new JLabel("Author:");
-        panel.add(jLabel2);
-
-        JTextField jTextFieldAuthor = new JTextField(10);
-        panel.add(jTextFieldAuthor);
-
-        JLabel jLabel3 = new JLabel("Year Of Publications:");
-        panel.add(jLabel3);
-
-        JTextField jTextFieldYear = new JTextField(10);
-        panel.add(jTextFieldYear);
-
-        JLabel jLabel4 = new JLabel("ISBN:");
-        panel.add(jLabel4);
-
-        JTextField jTextFieldISBN = new JTextField(10);
-        panel.add(jTextFieldISBN);
-
-        JLabel jLabel5 = new JLabel("Current Pages:");
-        panel.add(jLabel5);
-
-        JTextField jTextFieldCurrentPages = new JTextField(10);
-        panel.add(jTextFieldCurrentPages);
-
-        JLabel jLabel6 = new JLabel("Total Pages:");
-        panel.add(jLabel6);
-
-        JTextField jTextFieldTotalPages = new JTextField(10);
-        panel.add(jTextFieldTotalPages);
-
-        JButton btnAddRow = new JButton("Add Row");
-        panel.add(btnAddRow);
-
-        JButton btnDeleteRow = new JButton("Delete Row");
-        panel.add(btnDeleteRow);
+        JTextField searchField = new JTextField(20); // Search field
+        panel.add(searchField);
 
         JButton btnMoveToBookshelf = new JButton("Move to Bookshelf");
         panel.add(btnMoveToBookshelf);
 
         JButton btnReturnToLibrary = new JButton("Return to Library");
         panel.add(btnReturnToLibrary);
-
-        JLabel bookshelfLabel = new JLabel("Bookshelf");
-        panel.add(bookshelfLabel);
 
         bookshelfTableModel = new DefaultTableModel();
         bookshelfTableModel.addColumn("Title");
@@ -101,36 +58,6 @@ public class Main extends JFrame {
         JTable libraryTable = new JTable(libraryTableModel);
         JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
         getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
-
-        btnAddRow.addActionListener(e -> {
-            String title = jTextFieldTitle.getText();
-            String author = jTextFieldAuthor.getText();
-            String year = jTextFieldYear.getText();
-            String isbn = jTextFieldISBN.getText();
-            String currentPages = jTextFieldCurrentPages.getText();
-            String totalPages = jTextFieldTotalPages.getText();
-
-            String[] rowData = {title, author, year, isbn, currentPages, totalPages};
-            libraryTableModel.addRow(rowData);
-
-            // Clear text fields after adding row
-            jTextFieldTitle.setText("");
-            jTextFieldAuthor.setText("");
-            jTextFieldYear.setText("");
-            jTextFieldISBN.setText("");
-            jTextFieldCurrentPages.setText("");
-            jTextFieldTotalPages.setText("");
-
-            saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
-        });
-
-        btnDeleteRow.addActionListener(e -> {
-            int[] selectedRows = libraryTable.getSelectedRows();
-            for (int i = selectedRows.length - 1; i >= 0; i--) {
-                libraryTableModel.removeRow(selectedRows[i]);
-            }
-            saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
-        });
 
         btnMoveToBookshelf.addActionListener(e -> {
             int[] selectedRows = libraryTable.getSelectedRows();
@@ -160,11 +87,27 @@ public class Main extends JFrame {
             saveToFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
         });
 
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // Search functionality
+        searchField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String query = searchField.getText().toLowerCase();
+                filterTable(libraryTable, libraryTableModel, query);
+                filterTable(bookshelfTable, bookshelfTableModel, query);
+            }
+        });
 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         pack();
         setLocationRelativeTo(null);
     }
+
+    private void filterTable(JTable table, DefaultTableModel model, String query) {
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        table.setRowSorter(sorter);
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query, 0)); // Filter only on the Title column (index 0)
+    }
+
 
     private void saveToFile(String fileName, DefaultTableModel tableModel) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
