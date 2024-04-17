@@ -86,37 +86,6 @@ public class Main extends JFrame {
         JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
         getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
 
-
-        btnAddRow.addActionListener(e -> {
-            String title = jTextFieldTitle.getText();
-            String author = jTextFieldAuthor.getText();
-            String year = jTextFieldYear.getText();
-            String isbn = jTextFieldISBN.getText();
-            String currentPages = jTextFieldCurrentPages.getText();
-            String totalPages = jTextFieldTotalPages.getText();
-
-            String[] rowData = {title, author, year, isbn, currentPages, totalPages};
-            libraryTableModel.addRow(rowData);
-
-            // Clear text fields after adding row
-            jTextFieldTitle.setText("");
-            jTextFieldAuthor.setText("");
-            jTextFieldYear.setText("");
-            jTextFieldISBN.setText("");
-            jTextFieldCurrentPages.setText("");
-            jTextFieldTotalPages.setText("");
-
-            saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
-        });
-
-        btnDeleteRow.addActionListener(e -> {
-            int[] selectedRows = libraryTable.getSelectedRows();
-            for (int i = selectedRows.length - 1; i >= 0; i--) {
-                libraryTableModel.removeRow(selectedRows[i]);
-            }
-            saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
-        });
-
         btnMoveToBookshelf.addActionListener(e -> {
             int[] selectedRows = libraryTable.getSelectedRows();
             for (int i = selectedRows.length - 1; i >= 0; i--) {
