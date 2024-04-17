@@ -5,6 +5,13 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Main extends JFrame {
     private DefaultTableModel libraryTableModel;
@@ -54,10 +61,61 @@ public class Main extends JFrame {
         JTable bookshelfTable = new JTable(bookshelfTableModel);
         JScrollPane bookshelfScrollPane = new JScrollPane(bookshelfTable);
         getContentPane().add(bookshelfScrollPane, BorderLayout.CENTER);
+        
+        bookshelfTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = bookshelfTable.rowAtPoint(e.getPoint());
+                int col = bookshelfTable.columnAtPoint(e.getPoint());
+                String title = "";
+                String author = "";
+                String desc = "";
+                if (row >= 0 && col == 0) { // Assuming titles are in the first column
+                    title = (String) bookshelfTableModel.getValueAt(row, col);
+                    author = (String) bookshelfTableModel.getValueAt(row, 1);
+                    desc = (String) bookshelfTableModel.getValueAt(row, 2);
+                    ImageIcon image = new ImageIcon("covers/" + title.replaceAll("\\s", "").toLowerCase() + ".jpg");
+                    BookPanel bookPanel = new BookPanel(image, title, author, desc);
+                    JOptionPane.showMessageDialog(Main.this, bookPanel);
+                }
+            }
+        });
+
 
         JTable libraryTable = new JTable(libraryTableModel);
         JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
         getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
+
+
+        btnAddRow.addActionListener(e -> {
+            String title = jTextFieldTitle.getText();
+            String author = jTextFieldAuthor.getText();
+            String year = jTextFieldYear.getText();
+            String isbn = jTextFieldISBN.getText();
+            String currentPages = jTextFieldCurrentPages.getText();
+            String totalPages = jTextFieldTotalPages.getText();
+
+            String[] rowData = {title, author, year, isbn, currentPages, totalPages};
+            libraryTableModel.addRow(rowData);
+
+            // Clear text fields after adding row
+            jTextFieldTitle.setText("");
+            jTextFieldAuthor.setText("");
+            jTextFieldYear.setText("");
+            jTextFieldISBN.setText("");
+            jTextFieldCurrentPages.setText("");
+            jTextFieldTotalPages.setText("");
+
+            saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
+        });
+
+        btnDeleteRow.addActionListener(e -> {
+            int[] selectedRows = libraryTable.getSelectedRows();
+            for (int i = selectedRows.length - 1; i >= 0; i--) {
+                libraryTableModel.removeRow(selectedRows[i]);
+            }
+            saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
+        });
 
         btnMoveToBookshelf.addActionListener(e -> {
             int[] selectedRows = libraryTable.getSelectedRows();
