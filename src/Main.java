@@ -4,44 +4,45 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.*;
 
 public class Main extends JFrame {
+    // Declare GUI components from the generated code
+    private JPanel panel;
+    private JTextField searchField;
+    private JTable bookshelfTable;
+    private JTable libraryTable;
+    private JButton btnMoveToBookshelf;
+    private JButton btnReturnToLibrary;
+    private JLabel search;
+
     private DefaultTableModel libraryTableModel;
     private DefaultTableModel bookshelfTableModel;
+
     private final String LIBRARY_FILE_NAME = "library_books.txt";
     private final String BOOKSHELF_FILE_NAME = "bookshelf_books.txt";
 
     public Main() {
+        // Initialize GUI components from the generated code
         initComponents();
+
+        // Initialize table models
+        libraryTableModel = (DefaultTableModel) libraryTable.getModel();
+        bookshelfTableModel = (DefaultTableModel) bookshelfTable.getModel();
+
+        // Load data from files
         loadFromFile(LIBRARY_FILE_NAME, libraryTableModel);
         loadFromFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
     }
 
     private void initComponents() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Book Manager");
-        setPreferredSize(new Dimension(1920, 800));
 
-        JPanel panel = new JPanel();
+        // Add the generated panel to the JFrame
         getContentPane().add(panel, BorderLayout.NORTH);
 
-        JTextField searchField = new JTextField(20); // Search field
-        panel.add(searchField);
-
-        JButton btnMoveToBookshelf = new JButton("Move to Bookshelf");
-        panel.add(btnMoveToBookshelf);
-
-        JButton btnReturnToLibrary = new JButton("Return to Library");
-        panel.add(btnReturnToLibrary);
-
+        // Initialize table models
         bookshelfTableModel = new DefaultTableModel();
         bookshelfTableModel.addColumn("Title");
         bookshelfTableModel.addColumn("Author");
@@ -58,10 +59,12 @@ public class Main extends JFrame {
         libraryTableModel.addColumn("Current Pages");
         libraryTableModel.addColumn("Total Pages");
 
-        JTable bookshelfTable = new JTable(bookshelfTableModel);
+        // Initialize bookshelf table
+        bookshelfTable = new JTable(bookshelfTableModel);
         JScrollPane bookshelfScrollPane = new JScrollPane(bookshelfTable);
         getContentPane().add(bookshelfScrollPane, BorderLayout.CENTER);
-        
+
+        // Add mouse listener for bookshelf table
         bookshelfTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -81,11 +84,12 @@ public class Main extends JFrame {
             }
         });
 
-
-        JTable libraryTable = new JTable(libraryTableModel);
+        // Initialize library table
+        libraryTable = new JTable(libraryTableModel);
         JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
         getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
 
+        // Add action listeners to buttons
         btnMoveToBookshelf.addActionListener(e -> {
             int[] selectedRows = libraryTable.getSelectedRows();
             for (int i = selectedRows.length - 1; i >= 0; i--) {
@@ -114,7 +118,7 @@ public class Main extends JFrame {
             saveToFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
         });
 
-        // Search functionality
+        // Add key listener to search field
         searchField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -124,9 +128,15 @@ public class Main extends JFrame {
             }
         });
 
+        // Set frame properties
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Book Manager");
+        setPreferredSize(new Dimension(1920, 800));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         pack();
         setLocationRelativeTo(null);
+
+
     }
 
     private void filterTable(JTable table, DefaultTableModel model, String query) {
@@ -134,7 +144,6 @@ public class Main extends JFrame {
         table.setRowSorter(sorter);
         sorter.setRowFilter(RowFilter.regexFilter("(?i)" + query, 0)); // Filter only on the Title column (index 0)
     }
-
 
     private void saveToFile(String fileName, DefaultTableModel tableModel) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
