@@ -176,11 +176,14 @@ public class Main extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public static void initializeAndShowGUI() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
             }
         });
+    }
+    public static void main(String[] args) {
+        initializeAndShowGUI();
     }
 }

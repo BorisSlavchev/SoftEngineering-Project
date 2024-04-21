@@ -100,7 +100,8 @@ public class PinCode {
                                 System.exit(0);
                             } else {
                                 if(input.equals(pinCode)){
-                                    JOptionPane.showMessageDialog(jFrame, "Unlocked");
+                                    Main.initializeAndShowGUI(); // Call the initializeAndShowGUI method from Main
+                                    //JOptionPane.showMessageDialog(jFrame, "Unlocked");
                                     pinEntered = true;
                                     System.exit(0);
                                 }else{
