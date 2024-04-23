@@ -36,3 +36,6 @@ okay,null,null,null,null,null
 1,1,1,1,1,1
 1,1,1,1,1,1
 1,1,1,1,1,1
+1,1,1,1,1,1
+3,3,3,3,3,3
+Harry Potter,J.K Rowling,A book about wizards,,200,50000
