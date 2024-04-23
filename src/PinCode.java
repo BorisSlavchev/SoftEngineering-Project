@@ -54,8 +54,8 @@ public class PinCode {
                         fileWriter.close();
                         System.out.println("Pin set");
                         pinSet = true;
-                        //The system exit was only for the code to close quickly, you can remove it
-                        System.exit(0);
+                        // launching the app
+                        Main mainAppGui = new Main();
                     }
                     //Check whether or not the number inputted is an integer or not
                 } catch(NumberFormatException e){
@@ -103,7 +103,9 @@ public class PinCode {
                                     Main.initializeAndShowGUI(); // Call the initializeAndShowGUI method from Main
                                     //JOptionPane.showMessageDialog(jFrame, "Unlocked");
                                     pinEntered = true;
-                                    System.exit(0);
+                                    // launching the app
+                                    Main mainAppGui = new Main();
+
                                 }else{
                                     JOptionPane.showMessageDialog(jFrame, "Wrong pin");
                                     tries++;
