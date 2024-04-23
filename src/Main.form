@@ -45,7 +45,7 @@
       </component>
       <component id="e23c0" class="javax.swing.JTable" binding="libraryTable">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="7" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <autoCreateRowSorter value="true"/>
@@ -54,7 +54,7 @@
       </component>
       <component id="a8c9c" class="javax.swing.JTable" binding="bookshelfTable">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="6" hsize-policy="7" anchor="9" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="134"/>
           </grid>
         </constraints>
