@@ -16,6 +16,8 @@ public class Main extends JFrame {
     private JTable libraryTable;
     private JButton btnMoveToBookshelf;
     private JButton btnReturnToLibrary;
+
+    private JButton btnSaveEdits;
     private JLabel search;
 
     private DefaultTableModel libraryTableModel;
@@ -41,6 +43,11 @@ public class Main extends JFrame {
 
         // Add the generated panel to the JFrame
         getContentPane().add(panel, BorderLayout.NORTH);
+
+        btnSaveEdits.addActionListener(e -> {
+            saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
+            saveToFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
+        });
 
         // Initialize table models
         bookshelfTableModel = new NonEditableTableModel();
@@ -129,6 +136,8 @@ public class Main extends JFrame {
                 filterTable(bookshelfTable, bookshelfTableModel, query);
             }
         });
+
+
 
         // Set frame properties
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
