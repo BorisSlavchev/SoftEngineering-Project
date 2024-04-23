@@ -43,7 +43,7 @@ public class Main extends JFrame {
         getContentPane().add(panel, BorderLayout.NORTH);
 
         // Initialize table models
-        bookshelfTableModel = new DefaultTableModel();
+        bookshelfTableModel = new NonEditableTableModel();
         bookshelfTableModel.addColumn("Title");
         bookshelfTableModel.addColumn("Author");
         bookshelfTableModel.addColumn("Year Of Publications");
@@ -51,7 +51,7 @@ public class Main extends JFrame {
         bookshelfTableModel.addColumn("Current Pages");
         bookshelfTableModel.addColumn("Total Pages");
 
-        libraryTableModel = new DefaultTableModel();
+        libraryTableModel = new NonEditableTableModel();
         libraryTableModel.addColumn("Title");
         libraryTableModel.addColumn("Author");
         libraryTableModel.addColumn("Year Of Publications");
@@ -61,6 +61,7 @@ public class Main extends JFrame {
 
         // Initialize bookshelf table
         bookshelfTable = new JTable(bookshelfTableModel);
+        bookshelfTable.getTableHeader().setReorderingAllowed(false);
         JScrollPane bookshelfScrollPane = new JScrollPane(bookshelfTable);
         getContentPane().add(bookshelfScrollPane, BorderLayout.CENTER);
 
@@ -86,6 +87,7 @@ public class Main extends JFrame {
 
         // Initialize library table
         libraryTable = new JTable(libraryTableModel);
+        libraryTable.getTableHeader().setReorderingAllowed(false);
         JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
         getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
 
@@ -133,6 +135,7 @@ public class Main extends JFrame {
         setTitle("Book Manager");
         setPreferredSize(new Dimension(1920, 800));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setResizable(false); // Add this line to make the window not resizable
         pack();
         setLocationRelativeTo(null);
 
@@ -185,5 +188,13 @@ public class Main extends JFrame {
     }
     public static void main(String[] args) {
         initializeAndShowGUI();
+    }
+
+    private class NonEditableTableModel extends DefaultTableModel {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Make all cells non-editable except the "Current Pages" column
+            return column == getColumnCount() - 2; // Assuming "Current Pages" is the second last column
+        }
     }
 }
