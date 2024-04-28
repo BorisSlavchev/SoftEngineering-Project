@@ -92,6 +92,7 @@ public class Main extends JFrame {
         getContentPane().add(bookshelfScrollPane, BorderLayout.CENTER);
 
 
+
         // Add mouse listener for bookshelf table
         bookshelfTable.addMouseListener(new MouseAdapter() {
             @Override
@@ -186,8 +187,6 @@ public class Main extends JFrame {
         setResizable(false); // Add this line to make the window not resizable
         pack();
         setLocationRelativeTo(null);
-
-
     }
     public JTable getBookshelfTable() {
         return bookshelfTable;
@@ -261,6 +260,20 @@ public class Main extends JFrame {
         public boolean isCellEditable(int row, int column) {
             // Make all cells non-editable except the "Current Pages" column
             return column == getColumnCount() - 2; // Assuming "Current Pages" is the second last column
+        }
+        public void setValueAt(Object aValue, int row, int column) {
+            // Check if the column being edited is "Current Pages"
+            if (column == getColumnCount() - 2) {
+                int totalPages = Integer.parseInt(getValueAt(row, getColumnCount() - 1).toString()); // Assuming Total Pages is the last column
+                int currentPages = Integer.parseInt(aValue.toString());
+                if (currentPages <= totalPages) {
+                    super.setValueAt(aValue, row, column);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Current Pages cannot be greater than Total Pages", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                super.setValueAt(aValue, row, column);
+            }
         }
     }
 }
