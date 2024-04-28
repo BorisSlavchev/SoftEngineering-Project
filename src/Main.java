@@ -285,12 +285,12 @@ public class Main extends JFrame {
         @Override
         public boolean isCellEditable(int row, int column) {
             // Make all cells non-editable except the "Current Pages" column
-            return column == getColumnCount() - 2; // Assuming "Current Pages" is the second last column
+            return column == getColumnCount() - 4; // Assuming "Current Pages" is the second last column
         }
         public void setValueAt(Object aValue, int row, int column) {
             // Check if the column being edited is "Current Pages"
-            if (column == getColumnCount() - 2) {
-                int totalPages = Integer.parseInt(getValueAt(row, getColumnCount() - 1).toString()); // Assuming Total Pages is the last column
+            if (column == getColumnCount() - 4) {
+                int totalPages = Integer.parseInt(getValueAt(row, getColumnCount() - 3).toString()); // Assuming Total Pages is the last column
                 int currentPages = Integer.parseInt(aValue.toString());
                 if (currentPages <= totalPages) {
                     super.setValueAt(aValue, row, column);

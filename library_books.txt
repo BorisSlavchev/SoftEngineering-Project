@@ -1,14 +1,14 @@
-"1984", George Orwell, 1949, 978-0451524935, 0, 328, A dystopian novel exploring themes of totalitarianism., 0
-"The Great Gatsby", F. Scott Fitzgerald, 1925, 978-0743273565, 0, 180,A tale of wealth ambition and lost love amidst the extravagance of the Jazz Age., 0
-"The Catcher in the Rye", J.D. Salinger, 1951, 978-0316769488, 0, 224, A coming-of-age story narrated by a disillusioned teenager in New York City., 0
-"The Hobbit", J.R.R. Tolkien, 1937, 978-0547928227, 0, 320, An adventurous quest filled with elves dwarves dragons and a humble hobbit named Bilbo Baggins., 0
-"Pride and Prejudice", Jane Austen, 1813, 978-1503290563, 0, 272, A classic romance novel exploring social status love and marriage in 19th-century England., 0
-"To the Lighthouse", Virginia Woolf, 1927, 978-0156907392, 0, 209, A modernist novel delving into the complexities of human relationships and the passage of time., 0
-"The Lord of the Rings", J.R.R. Tolkien, 1954, 978-0618640157, 0, 1504, An epic fantasy trilogy chronicling the struggle against the Dark Lord Sauron to save Middle-earth., 0
-"The Da Vinci Code", Dan Brown, 2003, 978-0307474278, 0, 592, A gripping mystery thriller unraveling secrets of the past and hidden codes within famous artworks., 0
-"Moby-Dick", Herman Melville, 1851, 978-1503280786, 0, 632, An allegorical novel about obsession revenge and the relentless pursuit of a white whale., 0
-"The Alchemist", Paulo Coelho, 1988, 978-0061122415, 0, 208, A philosophical tale about following one's dreams and discovering the true meaning of life., 0
-"The Hunger Games", Suzanne Collins, 2008, 978-0439023528, 0, 384, A dystopian saga where teenagers fight to the death in a televised spectacle for the entertainment of a totalitarian regime., 0
-"The Shining", Stephen King, 1977, 978-0307743657, 0, 688, A psychological horror novel set in an isolated hotel exploring themes of madness and supernatural forces., 0
-"The Road", Cormac McCarthy, 2006, 978-0307387899, 0, 287, A post-apocalyptic tale of a father and son's journey through a desolate landscape in search of hope and survival., 0
+To the Lighthouse, Virginia Woolf, 1927, 978-0156907392, 0, 209, A modernist novel delving into the complexities of human relationships and the passage of time., 0
+The Lord of the Rings, J.R.R. Tolkien, 1954, 978-0618640157, 0, 1504, An epic fantasy trilogy chronicling the struggle against the Dark Lord Sauron to save Middle-earth., 0
+The Da Vinci Code, Dan Brown, 2003, 978-0307474278, 0, 592, A gripping mystery thriller unraveling secrets of the past and hidden codes within famous artworks., 0
+Moby-Dick, Herman Melville, 1851, 978-1503280786, 0, 632, An allegorical novel about obsession revenge and the relentless pursuit of a white whale., 0
+The Alchemist, Paulo Coelho, 1988, 978-0061122415, 0, 208, A philosophical tale about following one's dreams and discovering the true meaning of life., 0
+The Hunger Games, Suzanne Collins, 2008, 978-0439023528, 0, 384, A dystopian saga where teenagers fight to the death in a televised spectacle for the entertainment of a totalitarian regime., 0
+The Shining, Stephen King, 1977, 978-0307743657, 0, 688, A psychological horror novel set in an isolated hotel exploring themes of madness and supernatural forces., 0
+The Road, Cormac McCarthy, 2006, 978-0307387899, 0, 287, A post-apocalyptic tale of a father and son's journey through a desolate landscape in search of hope and survival., 0
 ,null,null,null,null,null,null,null
+1984, George Orwell, 1949, 978-0451524935, 0, 328, A dystopian novel exploring themes of totalitarianism., 0
+The Great Gatsby, F. Scott Fitzgerald, 1925, 978-0743273565, 0, 180,A tale of wealth ambition and lost love amidst the extravagance of the Jazz Age., 0
+The Catcher in the Rye, J.D. Salinger, 1951, 978-0316769488, 0, 224, A coming-of-age story narrated by a disillusioned teenager in New York City., 0
+The Hobbit, J.R.R. Tolkien, 1937, 978-0547928227, 0, 320, An adventurous quest filled with elves dwarves dragons and a humble hobbit named Bilbo Baggins., 0
+Pride and Prejudice, Jane Austen, 1813, 978-1503290563, 0, 272, A classic romance novel exploring social status love and marriage in 19th-century England., 0
