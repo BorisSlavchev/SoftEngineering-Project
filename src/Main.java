@@ -147,8 +147,6 @@ public class Main extends JFrame {
         setResizable(false); // Add this line to make the window not resizable
         pack();
         setLocationRelativeTo(null);
-
-
     }
 
     private void filterTable(JTable table, DefaultTableModel model, String query) {
