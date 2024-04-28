@@ -59,7 +59,7 @@ public class Main extends JFrame {
         bookshelfTableModel.addColumn("Total Pages");
 
         libraryTableModel = new NonEditableTableModel();
-        libraryTableModel.addColumn("Title");
+        libraryTableModel.addColumn("Library:   Title");
         libraryTableModel.addColumn("Author");
         libraryTableModel.addColumn("Year Of Publications");
         libraryTableModel.addColumn("ISBN");
@@ -143,14 +143,12 @@ public class Main extends JFrame {
 
         // Set frame properties
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Book Manager");
+        setTitle("LibTrack");
         setPreferredSize(new Dimension(1920, 800));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false); // Add this line to make the window not resizable
         pack();
         setLocationRelativeTo(null);
-
-
     }
 
     private void filterTable(JTable table, DefaultTableModel model, String query) {
