@@ -38,7 +38,26 @@ public class Main extends JFrame {
         loadFromFile(LIBRARY_FILE_NAME, libraryTableModel);
         loadFromFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
     }
+    public class BookInfoDialog extends JDialog {
+        public BookInfoDialog(JFrame parent, ImageIcon image, String title, String author, String year) {
+            super(parent, "Book Information", true); // Set the title of the dialog
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            BookPanel bookPanel = new BookPanel((Main) parent, image, title, author, year);
+            JPanel contentPane = new JPanel();
+            contentPane.add(bookPanel);
+            setContentPane(contentPane);
+            pack();
+            setLocationRelativeTo(parent);
+            setVisible(true);
+        }
+    }
 
+    public void refreshLibraryTable() {
+        libraryTableModel.fireTableDataChanged();
+    }
+    public void refreshBookshelfTable() {
+        bookshelfTableModel.fireTableDataChanged();
+    }
     private void initComponents() {
 
         // Add the generated panel to the JFrame
@@ -72,31 +91,45 @@ public class Main extends JFrame {
         JScrollPane bookshelfScrollPane = new JScrollPane(bookshelfTable);
         getContentPane().add(bookshelfScrollPane, BorderLayout.CENTER);
 
+
         // Add mouse listener for bookshelf table
         bookshelfTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = bookshelfTable.rowAtPoint(e.getPoint());
                 int col = bookshelfTable.columnAtPoint(e.getPoint());
-                String title = "";
-                String author = "";
-                String desc = "";
                 if (row >= 0 && col == 0) { // Assuming titles are in the first column
-                    title = (String) bookshelfTableModel.getValueAt(row, col);
-                    author = (String) bookshelfTableModel.getValueAt(row, 1);
-                    desc = (String) bookshelfTableModel.getValueAt(row, 2);
+                    String title = (String) bookshelfTableModel.getValueAt(row, col);
+                    String author = (String) bookshelfTableModel.getValueAt(row, 1);
+                    String year = (String) bookshelfTableModel.getValueAt(row, 2);
                     ImageIcon image = new ImageIcon("covers/" + title.replaceAll("\\s", "").toLowerCase() + ".jpg");
-                    BookPanel bookPanel = new BookPanel(image, title, author, desc);
-                    JOptionPane.showMessageDialog(Main.this, bookPanel);
+                    BookPanel bookPanel = new BookPanel(Main.this, image, title, author, year);
+                    new BookInfoDialog(Main.this, image, title, author, year);
                 }
             }
         });
-
         // Initialize library table
         libraryTable = new JTable(libraryTableModel);
         libraryTable.getTableHeader().setReorderingAllowed(false);
         JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
         getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
+
+        libraryTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = libraryTable.rowAtPoint(e.getPoint());
+                int col = libraryTable.columnAtPoint(e.getPoint());
+                if (row >= 0 && col == 0) { // Assuming titles are in the first column
+                    String title = (String) libraryTableModel.getValueAt(row, col);
+                    String author = (String) libraryTableModel.getValueAt(row, 1);
+                    String year = (String) libraryTableModel.getValueAt(row, 2);
+                    ImageIcon image = new ImageIcon("covers/" + title.replaceAll("\\s", "").toLowerCase() + ".jpg");
+                    BookPanel bookPanel = new BookPanel(Main.this,image, title, author, year);
+                    new BookInfoDialog(Main.this, image, title, author, year);
+                }
+            }
+        });
+
 
         // Add action listeners to buttons
         btnMoveToBookshelf.addActionListener(e -> {
@@ -109,6 +142,8 @@ public class Main extends JFrame {
                 bookshelfTableModel.addRow(rowData);
                 libraryTableModel.removeRow(selectedRows[i]);
             }
+            refreshBookshelfTable();
+            refreshLibraryTable();
             saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
             saveToFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
         });
@@ -122,7 +157,11 @@ public class Main extends JFrame {
                 }
                 libraryTableModel.addRow(rowData);
                 bookshelfTableModel.removeRow(selectedRows[i]);
+                refreshBookshelfTable();
+                refreshLibraryTable();
             }
+            libraryTable.repaint();
+            bookshelfTable.repaint();
             saveToFile(LIBRARY_FILE_NAME, libraryTableModel);
             saveToFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
         });
@@ -149,6 +188,24 @@ public class Main extends JFrame {
         setLocationRelativeTo(null);
 
 
+    }
+    public JTable getBookshelfTable() {
+        return bookshelfTable;
+    }
+    public JTable getLibraryTable() {
+        return libraryTable;
+    }
+    public DefaultTableModel getLibraryTableModel() {
+        return libraryTableModel;
+    }
+    public DefaultTableModel getBookshelfTableModel() {
+        return bookshelfTableModel;
+    }
+    public JButton getBtnMoveToBookshelf() {
+        return btnMoveToBookshelf;
+    }
+    public JButton getBtnReturnToLibrary() {
+        return btnReturnToLibrary;
     }
 
     private void filterTable(JTable table, DefaultTableModel model, String query) {
