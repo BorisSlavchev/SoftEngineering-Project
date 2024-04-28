@@ -2,10 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 
 public class Main extends JFrame {
@@ -16,7 +13,6 @@ public class Main extends JFrame {
     private JTable libraryTable;
     private JButton btnMoveToBookshelf;
     private JButton btnReturnToLibrary;
-
     private JButton btnSaveEdits;
     private JLabel search;
 
