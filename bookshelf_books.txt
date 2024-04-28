@@ -1,1 +1,2 @@
-To the Lighthouse, Virginia Woolf, 1927, 978-0156907392,100,209, A modernist novel delving into the complexities of human relationships and the passage of time.,5
+Pride and Prejudice, Jane Austen, 1813, 978-1503290563,100,272, A classic romance novel exploring social status love and marriage in 19th-century England.,4
+To the Lighthouse, Virginia Woolf, 1927, 978-0156907392,99,209, A modernist novel delving into the complexities of human relationships and the passage of time.,1

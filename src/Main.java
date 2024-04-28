@@ -92,7 +92,21 @@ public class Main extends JFrame {
         JScrollPane bookshelfScrollPane = new JScrollPane(bookshelfTable);
         getContentPane().add(bookshelfScrollPane, BorderLayout.CENTER);
 
+        // Hide Description and Rating columns in bookshelfTable
+        bookshelfTable.getColumnModel().getColumn(6).setMaxWidth(0);
+        bookshelfTable.getColumnModel().getColumn(6).setMinWidth(0);
+        bookshelfTable.getColumnModel().getColumn(6).setPreferredWidth(0);
 
+        // Initialize library table
+        libraryTable = new JTable(libraryTableModel);
+        libraryTable.getTableHeader().setReorderingAllowed(false);
+        JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
+        getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
+
+        // Hide Description and Rating columns in libraryTable
+        libraryTable.getColumnModel().getColumn(6).setMaxWidth(0);
+        libraryTable.getColumnModel().getColumn(6).setMinWidth(0);
+        libraryTable.getColumnModel().getColumn(6).setPreferredWidth(0);
 
         // Add mouse listener for bookshelf table
         bookshelfTable.addMouseListener(new MouseAdapter() {
@@ -114,11 +128,6 @@ public class Main extends JFrame {
                 }
             }
         });
-        // Initialize library table
-        libraryTable = new JTable(libraryTableModel);
-        libraryTable.getTableHeader().setReorderingAllowed(false);
-        JScrollPane libraryScrollPane = new JScrollPane(libraryTable);
-        getContentPane().add(libraryScrollPane, BorderLayout.SOUTH);
 
         libraryTable.addMouseListener(new MouseAdapter() {
             @Override
