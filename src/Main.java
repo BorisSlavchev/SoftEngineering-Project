@@ -233,6 +233,23 @@ public class Main extends JFrame {
         }
     }
 
+    public void updateBookProgress(String title, int newRating) {
+        // Iterate through each row in the bookshelfTableModel
+        for (int row = 0; row < bookshelfTableModel.getRowCount(); row++) {
+            // Check if the title matches the one provided
+            if (title.equalsIgnoreCase((String) bookshelfTableModel.getValueAt(row, 0))) {
+                // Update the rating column with the new rating
+                bookshelfTableModel.setValueAt(Integer.toString(newRating), row, 4);
+                // Refresh the bookshelfTable to reflect the changes
+                bookshelfTable.repaint();
+                // Save the updated data to the file
+                saveToFile(BOOKSHELF_FILE_NAME, bookshelfTableModel);
+                // Exit the loop since we found and updated the book
+                return;
+            }
+        }
+    }
+
     private void filterTable(JTable table, DefaultTableModel model, String query) {
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
         table.setRowSorter(sorter);

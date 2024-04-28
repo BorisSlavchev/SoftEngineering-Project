@@ -74,16 +74,21 @@ public class BookPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     String newCurrentPages = JOptionPane.showInputDialog(BookPanel.this, "Enter new current pages:", "Update Current Pages", JOptionPane.PLAIN_MESSAGE);
                     if (newCurrentPages != null) { // Check if the user clicked OK
+                        System.out.println(Integer.parseInt(newCurrentPages));
+
                         try {
                             int current = Integer.parseInt(newCurrentPages);
                             int total = Integer.parseInt(totalPages);
                             if (current >= 0 && current <= total) {
-                                BookPanel.this.currentPages = newCurrentPages;
-                                main.refreshBookshelfTable();
-                                main.refreshLibraryTable();
-                                main.repaint();
-                            } else {
+                                main.updateBookProgress(title, current);
+                            } else if (current >= total && current <= total) {
                                 JOptionPane.showMessageDialog(BookPanel.this, "Invalid input: Current pages cannot exceed total pages", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else if (!isInteger(currentPages)){
+                                JOptionPane.showMessageDialog(BookPanel.this, "Invalid input: Please enter a number", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(BookPanel.this, "Invalid input: Unknown error", "Error", JOptionPane.ERROR_MESSAGE);
                             }
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(BookPanel.this, "Invalid input: Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
@@ -182,6 +187,15 @@ public class BookPanel extends JPanel {
             JLabel label = (JLabel) component;
             int value = Integer.parseInt(label.getText());
             label.setForeground(value <= Integer.parseInt(rating) ? color : Color.BLACK);
+        }
+    }
+
+    public boolean isInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
