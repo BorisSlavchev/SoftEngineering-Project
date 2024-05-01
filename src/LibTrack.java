@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Scanner;
 
-public class PinCode {
+public class LibTrack {
     // AES encryption/decryption key
     private static final String AES_KEY = "0123456789abcdef"; // 16 characters for 128-bit key
 
@@ -55,7 +55,7 @@ public class PinCode {
                         System.out.println("Pin set");
                         pinSet = true;
                         // launching the app
-                        Main mainAppGui = new Main();
+                        LibraryAndBookshelf libraryAndBookshelfAppGui = new LibraryAndBookshelf();
                     }
                     //Check whether or not the number inputted is an integer or not
                 } catch(NumberFormatException e){
@@ -100,11 +100,11 @@ public class PinCode {
                                 System.exit(0);
                             } else {
                                 if(input.equals(pinCode)){
-                                    Main.initializeAndShowGUI(); // Call the initializeAndShowGUI method from Main
+                                    LibraryAndBookshelf.initializeAndShowGUI(); // Call the initializeAndShowGUI method from Main
                                     //JOptionPane.showMessageDialog(jFrame, "Unlocked");
                                     pinEntered = true;
                                     // launching the app
-                                    Main mainAppGui = new Main();
+                                    LibraryAndBookshelf libraryAndBookshelfAppGui = new LibraryAndBookshelf();
 
                                 }else{
                                     JOptionPane.showMessageDialog(jFrame, "Wrong pin");

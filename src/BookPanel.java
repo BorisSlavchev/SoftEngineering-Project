@@ -5,10 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 
 public class BookPanel extends JPanel {
-        private Main main;
+        private LibraryAndBookshelf libraryAndBookshelf;
         private ImageIcon image;
         private String title;
         private String author;
@@ -20,8 +19,8 @@ public class BookPanel extends JPanel {
         private JButton actionButton;
         private JPanel ratingPanel;
 
-        public BookPanel(Main main, ImageIcon image, String title, String author, String year, String description, String currentPages, String totalPages, String rating) {
-            this.main = main;
+        public BookPanel(LibraryAndBookshelf libraryAndBookshelf, ImageIcon image, String title, String author, String year, String description, String currentPages, String totalPages, String rating) {
+            this.libraryAndBookshelf = libraryAndBookshelf;
             this.image = image;
             this.title = title;
             this.author = author;
@@ -80,7 +79,7 @@ public class BookPanel extends JPanel {
                             int current = Integer.parseInt(newCurrentPages);
                             int total = Integer.parseInt(totalPages);
                             if (current >= 0 && current <= total) {
-                                main.updateBookProgress(title, current);
+                                libraryAndBookshelf.updateBookProgress(title, current);
                             } else if (current >= total && current <= total) {
                                 JOptionPane.showMessageDialog(BookPanel.this, "Invalid input: Current pages cannot exceed total pages", "Error", JOptionPane.ERROR_MESSAGE);
                             }
@@ -101,10 +100,10 @@ public class BookPanel extends JPanel {
 
             // Check if the book is already in the bookshelf
             boolean isInBookshelf = false;
-            DefaultTableModel bookshelfModel = main.getBookshelfTableModel();
-            DefaultTableModel libraryModel = main.getLibraryTableModel();
-            JTable bookshelfTable = main.getBookshelfTable();
-            JTable libraryTable = main.getLibraryTable();
+            DefaultTableModel bookshelfModel = libraryAndBookshelf.getBookshelfTableModel();
+            DefaultTableModel libraryModel = libraryAndBookshelf.getLibraryTableModel();
+            JTable bookshelfTable = libraryAndBookshelf.getBookshelfTable();
+            JTable libraryTable = libraryAndBookshelf.getLibraryTable();
             for (int i = 0; i < bookshelfModel.getRowCount(); i++) {
                 if (title.equals(bookshelfModel.getValueAt(i, 0))) {
                     isInBookshelf = true;
@@ -127,15 +126,15 @@ public class BookPanel extends JPanel {
 
             actionButton.addActionListener(e -> {
                 if (finalIsInBookshelf) {
-                    main.getBtnReturnToLibrary().doClick();
+                    libraryAndBookshelf.getBtnReturnToLibrary().doClick();
                 } else {
-                    main.getBtnMoveToBookshelf().doClick();
+                    libraryAndBookshelf.getBtnMoveToBookshelf().doClick();
                 }
                 bookshelfTable.repaint();
                 libraryTable.repaint();
-                main.refreshBookshelfTable();
-                main.refreshLibraryTable();
-                main.repaint();
+                libraryAndBookshelf.refreshBookshelfTable();
+                libraryAndBookshelf.refreshLibraryTable();
+                libraryAndBookshelf.repaint();
             });
         }
 
@@ -170,7 +169,7 @@ public class BookPanel extends JPanel {
             this.rating = rating;
         }
         updateRatingColor();
-        main.updateBookRating(title, Integer.parseInt(rating));
+        libraryAndBookshelf.updateBookRating(title, Integer.parseInt(rating));
     }
 
     // Method to update the color of the rating bar based on the rating value

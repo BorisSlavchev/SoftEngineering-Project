@@ -28,13 +28,13 @@ public class PinCodeTest {
         mockJOptionPane.setExpectedMessage("Set your pin");
 
         // Call the method to be tested
-        PinCode.setPin(mockJOptionPane.getJFrame());
+        LibTrack.setPin(mockJOptionPane.getJFrame());
 
         // Verify that the pin is set correctly
         try {
             Scanner scanner = new Scanner(tempFile);
             String encryptedPin = scanner.nextLine();
-            String decryptedPin = PinCode.decrypt(encryptedPin);
+            String decryptedPin = LibTrack.decrypt(encryptedPin);
             assertEquals(input, decryptedPin);
             scanner.close();
             System.out.println("everything is fine");
@@ -50,7 +50,7 @@ public class PinCodeTest {
         try {
             tempFile = File.createTempFile("pin", ".txt");
             FileWriter fileWriter = new FileWriter(tempFile);
-            String encryptedPin = PinCode.encrypt("1234");
+            String encryptedPin = LibTrack.encrypt("1234");
             fileWriter.write(encryptedPin);
             fileWriter.close();
             tempFile.deleteOnExit();
@@ -67,7 +67,7 @@ public class PinCodeTest {
         mockJOptionPane.setExpectedMessage("Input your pin");
 
         // Call the method to be tested
-        PinCode.checkPin(tempFile, mockJOptionPane.getJFrame());
+        LibTrack.checkPin(tempFile, mockJOptionPane.getJFrame());
 
         // Verify that the pin is checked correctly
         assertTrue(mockJOptionPane.isMessageShown("Unlocked"));

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
-public class Main extends JFrame {
+public class LibraryAndBookshelf extends JFrame {
     // Declare GUI components from the generated code
     private JPanel panel;
     private JTextField searchField;
@@ -23,7 +23,7 @@ public class Main extends JFrame {
     private final String LIBRARY_FILE_NAME = "library_books.txt";
     private final String BOOKSHELF_FILE_NAME = "bookshelf_books.txt";
 
-    public Main() {
+    public LibraryAndBookshelf() {
         // Initialize GUI components from the generated code
         initComponents();
 
@@ -39,7 +39,7 @@ public class Main extends JFrame {
         public BookInfoDialog(JFrame parent, ImageIcon image, String title, String author, String year, String description, String currentPages, String totalPages, String rating) {
             super(parent, "Book Information", true); // Set the title of the dialog
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            BookPanel bookPanel = new BookPanel((Main) parent, image, title, author, year, description, currentPages, totalPages, rating);
+            BookPanel bookPanel = new BookPanel((LibraryAndBookshelf) parent, image, title, author, year, description, currentPages, totalPages, rating);
             JPanel contentPane = new JPanel();
             contentPane.add(bookPanel);
             setContentPane(contentPane);
@@ -123,8 +123,8 @@ public class Main extends JFrame {
                     String totalPages = (String) bookshelfTableModel.getValueAt(row, 5);
                     String rating = (String) bookshelfTableModel.getValueAt(row, 7);
                     ImageIcon image = new ImageIcon("covers/" + title.replaceAll("\\s", "").toLowerCase() + ".jpg");
-                    BookPanel bookPanel = new BookPanel(Main.this, image, title, author, year, description, currentPages, totalPages, rating);
-                    new BookInfoDialog(Main.this, image, title, author, year, description, currentPages, totalPages, rating);
+                    BookPanel bookPanel = new BookPanel(LibraryAndBookshelf.this, image, title, author, year, description, currentPages, totalPages, rating);
+                    new BookInfoDialog(LibraryAndBookshelf.this, image, title, author, year, description, currentPages, totalPages, rating);
                 }
             }
         });
@@ -143,8 +143,8 @@ public class Main extends JFrame {
                     String totalPages = (String) libraryTableModel.getValueAt(row, 5);
                     String rating = (String) libraryTableModel.getValueAt(row, 7);
                     ImageIcon image = new ImageIcon("covers/" + title.replaceAll("\\s", "").toLowerCase() + ".jpg");
-                    BookPanel bookPanel = new BookPanel(Main.this,image, title, author, year, description, currentPages, totalPages, rating);
-                    new BookInfoDialog(Main.this, image, title, author, year, description, currentPages, totalPages, rating);
+                    BookPanel bookPanel = new BookPanel(LibraryAndBookshelf.this,image, title, author, year, description, currentPages, totalPages, rating);
+                    new BookInfoDialog(LibraryAndBookshelf.this, image, title, author, year, description, currentPages, totalPages, rating);
                 }
             }
         });
@@ -299,7 +299,7 @@ public class Main extends JFrame {
     public static void initializeAndShowGUI() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new LibraryAndBookshelf().setVisible(true);
             }
         });
     }

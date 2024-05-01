@@ -1,6 +1,9 @@
+###customs
+pin.txt
+
 ### IntelliJ IDEA ###
 out/
-!**/src/main/**/out/
+!**/src/libraryAndBookshelf/**/out/
 !**/src/test/**/out/
 
 ### Eclipse ###
@@ -12,7 +15,7 @@ out/
 .springBeans
 .sts4-cache
 bin/
-!**/src/main/**/bin/
+!**/src/libraryAndBookshelf/**/bin/
 !**/src/test/**/bin/
 
 ### NetBeans ###
